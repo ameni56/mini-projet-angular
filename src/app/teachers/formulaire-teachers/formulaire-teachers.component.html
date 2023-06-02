@@ -1,0 +1,69 @@
+<main class="main-content  mt-0">
+    <section>
+      <div class="page-header min-vh-100">
+        <div class="container">
+          <div class="row">
+            
+            <div class="col-xl-9 col-lg-5 col-md-12 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
+              <div class="card card-plain">
+                <div class="card-header">
+                  <h4 class="font-weight-bolder">AJOUTER TEACHER</h4>
+                
+                </div>
+                <div class="card-body">
+                  <form #f="ngForm" (ngSubmit)="addenseignant(teachers)
+                  ">
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">nom</label>
+                      <input type="text" name="nom" class="form-control" [(ngModel)]="teachers.nom"
+                      class="form-control" pattern="[a-zA-Z]{3,12}$" 
+                      #t="ngModel" required>
+                     
+                    </div>
+                    <div class="alert alert-danger" *ngIf="t.invalid && t.touched">
+                      <div *ngIf="t.hasError('required')">veuillez saisir votre nom</div>
+                      <div *ngIf="t.hasError('pattern')">nom invalide!!</div>
+                  </div>
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">prenom</label>
+                      <input type="text" name="prenom"class="form-control" [(ngModel)]="teachers.prenom"  #d="ngModel" required>
+                     
+                    </div>
+                    <div class="alert alert-danger" *ngIf="d.invalid && d.touched">
+                      <div *ngIf="d.hasError('required')">veuillez saisir votre prenom</div>
+                      <div *ngIf="d.hasError('pattern')">prenom invalide!!</div>
+                  </div>
+                  <label class="form-label"></label>
+                    <div class="input-group input-group-outline mb-3">
+                    
+                    
+                    <select  class="form-control" name="option" [(ngModel)]="teachers.grade"  #m="ngModel" required >
+                      <option  value="assistant">assistant</option>
+                      <option value="chefDepartement">chefDepartement</option>
+                      <option value="maitreTechnologue">maitreTechnologue</option>
+                 
+                      
+                     
+                  </select>
+               
+                </div>
+                <div class="alert alert-danger" *ngIf="m.invalid && m.touched">
+                  <div *ngIf="m.hasError('required')">veuillez saisir votre grade</div>
+          
+              </div>
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0"
+                      [disabled]="f.invalid">Ajouter</button>
+                    </div>
+                  </form>
+                
+                
+                </div>
+              
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>

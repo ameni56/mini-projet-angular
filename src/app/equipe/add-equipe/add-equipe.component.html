@@ -1,0 +1,63 @@
+<div class="container py-7">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card mx-10">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                    <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">{{action}} EQUIPE</h6>
+                    </div>
+                    <br>
+                    <form #f="ngForm" (ngSubmit)="saveEquipe()">
+                        <div class="form-group col-md-3 ">
+                            <mat-label>Nom de l'équipe</mat-label>
+                            <input type="text" [(ngModel)]="equipe.nomEquipe" name="nomEquipe"class="form-control" required minlength="3" #t="ngModel">
+                            <div class="alert alert-danger" *ngIf="t.invalid && t.touched">
+                                <div *ngIf="t.hasError('required')">Nom equipe obligatoire</div>
+                                <div *ngIf="t.hasError('minlength')">Minimum 3 lettres</div>
+                            </div>
+                        </div>
+                        <br>
+                        <mat-label> Niveau</mat-label><br>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Niveau equipe</mat-label>
+                                <mat-select [(ngModel)]="equipe.niveau" name="niveau" #m="ngModel" [ngClass]="{'invalid-textbox' : f.submitted && m.invalid }" required>
+                                    <mat-option *ngFor="let niv of niveaux" [value]="niv" > 
+                                        {{file[niv]}}
+                                        
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field> 
+                            <div class="form-group col-md-3 ">
+                            <div class="alert alert-danger" *ngIf="m.invalid && m.touched">
+                                <div *ngIf="m.hasError('required')">Niveau obligatoire</div>
+                            </div>
+                            </div>
+                            <br>
+                            <mat-label> Detail equipe</mat-label><br>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Select detail equipe</mat-label>
+                                <mat-select [(ngModel)]="equipe.detailEquipe" name="detailEquipe" #d="ngModel" required>
+                                    <mat-option [value]="d" *ngFor="let d of equipeD " >
+                                    {{d.salle + " " + d.thematique}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field> 
+                            <div class="form-group col-md-3 "> 
+                                <div class="alert alert-danger" *ngIf="d.invalid && d.touched">
+                                    <div *ngIf="d.hasError('required')">Detail equipe obligatoire</div>
+                                </div>
+                            </div>
+                            <br>
+                            <button mat-raised-button color="accent" type="submit" [disabled]="f.invalid">
+                                SAVE
+                            </button>
+                            <button mat-raised-button color="yellow" type="reset" class="btn btn-warning">
+                                reset
+                            </button>
+                    </form>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="container py-7">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card mx-10">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg pt-3 pb-1">
+            <h4 class="text-white text-capitalize ps-3">Les Departements</h4>
+            <div class="d-flex bd-highlight mb-3">
+            <button type="button"class="ms-auto p-2 bd-highlight btn btn-outline-light" routerLink="/departements/addDepart">Ajouter Departement</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body px-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-sm font-weight-bolder opacity-7">Nom Departement</th>
+                  <th class="text-secondary opacity-7">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let departement of list">
+                  <td>
+                    <div class="d-flex px-2 py-1 offset-md-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm">{{departement.nomDepart}}</h6>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="align-middle">
+                    <a href="javascript:;" class="text-warning font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Modifier departement" routerLink="/departements/updateDepart/{{departement.idDepart}}">
+                      Modifier
+                    </a>
+                    <a href="javascript:;" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Supprimer departement" (click)="delete(departement)">
+                      Supprimer
+                    </a>
+                  </td>
+                  
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,168 @@
+<div class="container py-7">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card mx-10">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">SHOW CONTRAT</h6>      
+          
+              <div class="row">
+             
+              </div>
+            </div>
+          </div>
+       
+          <input type="text" [(ngModel)]="name"
+          name="specialite" class="form-control" placeholder="search" autofocus>
+          <div class="example-button-container">
+            <button  mat-fab [routerLink]="['/contrat/addcontrat']"  >
+              <mat-icon>plus_one</mat-icon>
+            </button>
+            <button   (click)="generatePDF()" mat-fab  >
+              <mat-icon>bookmark</mat-icon>
+            </button>
+          </div>
+   
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+              <table  id ="content" #content class="table align-items-center mb-0">
+
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date Debut Contrat</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">date Fin Contrat</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">specialite</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">archive</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">montant Contrat</th>
+
+                    <th class="text-secondary opacity-7"></th>
+                  </tr>
+                </thead>
+             
+                <tbody *ngFor="let p of listcontrats  ">
+                  <tr *ngIf="p.specialite.indexOf(name)>-1 || name==null" ng>
+                    <td class="align-middle text-center text-sm">
+                        <div class="d-flex px-2 py-1">
+                     
+                        <div class="d-flex flex-column justify-content-center">
+                            <td class="align-middle text-center text-sm">
+                                <span class="text-xs text-secondary mb-0">{{p.dateDebutContrat}}</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs text-secondary mb-0">{{p.dateFinContrat}}</span>
+                    </td>
+                    
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs text-secondary mb-0">{{p.specialite}}</span>
+                 
+                    </td>
+                    <div class="d-flex flex-column justify-content-center">
+                      <td class="align-middle text-center text-sm">
+                          <span class="text-xs text-secondary mb-0">{{p.archive}}</span>
+                  </div>
+                    <td class="align-middle text-center text-sm">
+                    <span class="text-xs text-secondary mb-0">{{p.montantContrat}}
+                    </span>
+                </td>
+             
+          <td class="align-middle text-center text-sm">
+            <span class="text-xs text-secondary mb-0"></span>
+          </td>
+           
+                    <td class="align-middle">
+                      <button  mat-fab  color="primary" (click)="delete(p)" >
+                        <mat-icon>delete</mat-icon>                      </button>
+                            &nbsp;           
+                           <button  mat-fab  [routerLink]="['/contrat/updatecontrat', p.idContrat]" >
+                            <mat-icon>  build  </mat-icon>
+                           </button>
+
+      
+                           
+                            </td>    
+                            <td class="align-middle ">
+                              <button type="button" class="btn btn-danger"  data-bs-toggle="modal" (click)="affiche(p.idContrat)" data-bs-target="#exampleModall">
+                                show details
+                               </button>
+        
+                            <app-detailcontrat [id]="idContrat"></app-detailcontrat>
+                             </td>         
+                                    
+                  </tr>
+               
+              
+                  
+                
+                </tbody>
+              </table>
+             
+        
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">CHOISIR Etudiant</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+           <table class="table align-items-center mb-5" >
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">nom</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">prenom</th>
+                </tr>
+              </thead>
+
+              
+              <tbody *ngFor="let t of getalletudiant">
+                <tr >
+                  
+                 
+                 
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-xs text-secondary mb-0">{{t.nom}}</span>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-xs text-secondary mb-0">{{t.prenom}}</span>
+                  </td>
+               
+              
+                
+                   <td class="align-middle ">
+                  
+                 
+                   </td>
+                  <td class="align-middle">
+                  
+                  </td>
+                </tr>
+             
+               
+                
+              
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+           
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      var myModal = document.getElementById('myModal')
+      var myInput = document.getElementById('myInput')
+      
+      myModal.addEventListener('shown.bs.modal', function () {
+        myInput.focus()
+      })
+      </script>

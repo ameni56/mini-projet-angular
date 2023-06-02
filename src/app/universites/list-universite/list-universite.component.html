@@ -1,0 +1,229 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+    
+    <div class="container py-7" id="main-container">
+     
+      <div class="col-lg-12">
+        <div class="card mx-10">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+              <button class="btn btn-outline-light ms-auto  bd-highlight" routerLink="/universites/detail" style="margin-top:-1px">Plus de détails</button>
+              <h4 class="text-white text-capitalize ps-3 text-center ">Les universités</h4>
+              <div class="d-flex bd-highlight mb-3">
+                <!--<form class="form-inline my-2 my-lg-0">
+                  <input type="search" (ngModelChange)="findUniversiteByNomUni(nomUni.value)" #nomUni="ngModel" ngModel
+                   name="nomUni" id="searchName" class="form-control mr-sm-2" placeholder="chercher une université par nom..." required style="margin-left: 600px;margin-bottom: -100px;width:280px;" >
+                   
+           
+               
+          
+                </form>-->
+                <input type="text" [(ngModel)]="nomUni"
+                name="nom" class="form-control mr-sm-2" placeholder="chercher une université par nom..." style="width: 260px;margin-left: 600px" autofocus>
+              </div>
+              
+              <div>
+                
+             <button class="btn btn-outline-light ms-auto  bd-highlight" style="margin-top:-30px"(click)="onOpenModal(null!, 'add')">Ajouter</button>
+                </div>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+<div class="col-md-18 ">
+    <div class="row ">
+        <div class="col-xl-3 col-lg-6" *ngFor="let universite of listuniversites">
+        
+            <div class="card l-bg-cherry" *ngIf="universite.nomUni.indexOf(nomUni)>-1 || nomUni==null" ng>
+                <div class="card-statistic-3 p-4" >
+                    <div class="card-icon card-icon-large"><i class="fas fa-school"></i></div>
+                    <div class="mb-4">
+                        <h5 class="card-title mb-0" style="color: white;">{{universite.nomUni}}</h5>
+                    </div>
+                    
+                    <div class="row align-items-center mb-2 d-flex">
+                        <!--<div class="col-8">
+                            <h2 class="d-flex align-items-center mb-0">
+                                3,243
+                            </h2>
+                        </div>-->
+                        <div class="col-12 text-left">
+                             <a button (click)="onOpenModal(universite, 'edit')" class="btn btn-success tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a button (click)="onOpenModal(universite, 'delete')"  class="btn btn-danger tooltips" data-placement="top">
+                                <i class="fa fa-close"></i>
+                            </a>
+                            
+                            <a button (click)="onNombreDepartment(universite?.idUni!)"  class="btn btn-warning tooltips" data-placement="top">
+                              <i class="fas fa-list"></i>
+                              
+                             
+                          </a>
+                        </div>
+                    </div>
+                    <div class="progress mt-1 " data-height="8" style="height: 8px;">
+                        <div class="progress-bar l-bg-cyan" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         </div>
+        
+    </div>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- Add Universite Modal -->
+<div class="modal fade" id="addUniversiteModal" tabindex="-1" role="dialog" aria-labelledby="addUniversiteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+       <div class="modal-header">
+          <h5 class="modal-title" id="addUniversiteModalLabel">Ajouter Universite</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+       </div>
+       <div class="modal-body">
+          <form #addForm="ngForm" (ngSubmit)="onAddUniversite(addForm)">
+          <div class="form-group">
+             <label for="name">Nom d'universite</label>
+             <input type="text" ngModel name="nomUni" class="form-control" id="name" placeholder="Nom universite" required>
+           
+            
+
+          </div>
+          
+          
+          <div class="modal-footer">
+             <button type="button" id="add-universite-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+          </div>
+          </form>
+       </div>
+    </div>
+  </div>
+  </div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="updateUniversiteModal" tabindex="-1" role="dialog" aria-labelledby="universiteEditModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="updateUniversiteModalLabel">Modifier universite {{editUniversite?.nomUni}}</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <form #editForm="ngForm">
+              <div class="form-group">
+                 <label for="name">Nom</label>
+                 <input type="text" ngModel="{{editUniversite?.nomUni}}" name="nomUni" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Nom">
+                 
+              </div>
+              <input type="hidden" ngModel="{{editUniversite?.idUni}}" name="idUni" class="form-control" id="id" placeholder="id">
+             
+              
+              <div class="modal-footer">
+                 <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                 <button (click)="onUpdateUniversite(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+              </div>
+           </form>
+        </div>
+     </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteUniversiteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h5 class="modal-title" id="deleteModelLabel">Supprimer Universite</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+           </button>
+        </div>
+        <div class="modal-body">
+           <p>Vous êtes sûr de vouloir supprimer l'université {{deleteUniversite?.nomUni}}?</p>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+              <button (click)="onDeleteUniversite(deleteUniversite?.idUni!)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ <!--<div class="container py-7">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card mx-10">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Les universités</h6>
+              <div class="d-flex bd-highlight mb-3">
+                
+                
+             <button class="btn btn-outline-light ms-auto p-2 bd-highlight" routerLink="/universites/new">Ajouter</button>
+                </div>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nom de l'université</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Modification</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Suppression</th>
+                 </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let universite of listuniversites">
+                    
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{universite.nomUni}}</p>
+                      
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="badge badge-sm bg-gradient-success">Modifier</span>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <div class="modal-footer">
+                      <button (click)="onDeleteUniversite(universite?.idUni)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                      </div>
+                    </td>
+                    <td class="align-middle">
+                      <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                        Edit
+                      </a>
+                    </td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
+
+
+    

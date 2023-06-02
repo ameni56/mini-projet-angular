@@ -1,0 +1,83 @@
+<div class="container py-7">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card mx-10">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+              <div class="text-center text-white"><mat-icon>list_alt</mat-icon></div>
+              <h6 class="text-white text-center text-capitalize ps-3">LISTE EQUIPES</h6>
+            </div>
+          </div>
+            <br>
+            <link link="../style.css">
+            <div class="text-center">
+            <a  mat-raised-button color="accent" routerLink="/equipe/addequipe">
+              <mat-icon>add_box</mat-icon>  Equipe
+            </a>
+          </div>
+          
+
+          <div class="card-body px-0 pb-2 " >
+            <div class="table-responsive p-0">
+
+              <form class="col-md-5">
+                <div class="search-hero">
+                <input type="text" [(ngModel)]="nomEquipe"
+                name="nomEquipe" class="form-control" placeholder="Search by nom equipe, niveau, detail..">
+              </div>
+              </form>
+              <br>
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class=" text-uppercase text-dark text-sm font-weight-bolder opacity-15">Nom équipe</th>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-15">Niveau</th>
+                    <th class="text-center text-uppercase text-dark text-sm font-weight-bolder opacity-15">Détail equipe</th>
+                    <th class="text-dark opacity-7"></th>
+                  </tr>
+                </thead>
+                
+                <tbody *ngFor="let e of listequipes | filter: nomEquipe">
+                  <tr >
+                    <div class="d-flex px-5 py-1">
+
+                    <td class="text-capitalize text-center text-sm">
+                      <span class="text-sm text-dark mb-0 ">{{e.nomEquipe}}</span>
+                    </td>
+                    </div>
+
+                    <td class="align-middle text-center text-sm">
+                      <span [ngClass]="{'text-success':e.niveau === 'EXPERT',
+                      'text-warning':e.niveau === 'SENIOR',
+                      'text-danger':e.niveau === 'JUNIOR'}">{{e.niveau}}</span>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-sm text-dark mb-0" > {{e.detailEquipe.salle + " " + e.detailEquipe.thematique}}</span>
+                    </td>
+                   
+                    <td>
+                        <button mat-raised-button	 color="warn" (click)="delete(e)" >
+                          
+                          <mat-icon>delete_outline</mat-icon>
+
+                        </button>
+                        <a mat-raised-button color="yellow"  [routerLink]="['/equipe/updateequipe', e.idEquipe]">
+                          <mat-icon>update</mat-icon>
+
+                        </a>
+                        <a mat-stroked-button color="primary"  [routerLink]="['/chat', e.idEquipe]">
+                          <mat-icon>chat</mat-icon>
+
+                        </a>
+                      </td>
+                  </tr>    
+                
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   

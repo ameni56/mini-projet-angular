@@ -1,0 +1,58 @@
+<div class="modal fade" id="exampleModall" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Contrat-ETUDIANT</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         <table class="table align-items-center mb-5" >
+            <thead>
+              <tr>
+               
+              </tr>
+            </thead>
+
+            <tbody *ngFor="let t of lisecontratetudiant">
+                <tr >
+                  
+                 
+                 
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-xs text-secondary mb-0">{{t.nom}}</span>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-xs text-secondary mb-0">{{t.prenom}}</span>
+                  </td>
+                 
+                   <td class="align-middle ">
+                  
+                 
+                   </td>
+                  <td class="align-middle">
+                  
+                  </td>
+                </tr>
+             
+               
+                
+              
+              </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+         
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    var myModal = document.getElementById('myModal')
+    var myInput = document.getElementById('myInput')
+    
+    myModal.addEventListener('shown.bs.modal', function () {
+      myInput.focus()
+    })
+    </script>

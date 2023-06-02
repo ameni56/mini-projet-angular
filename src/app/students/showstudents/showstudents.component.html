@@ -1,0 +1,168 @@
+
+<div class="container py-7">
+  
+    <div class="">
+      <div class="col-lg-12">
+        
+        <div class="card mx-10">
+          
+          <div class="card-header p-0 ">
+            
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+              
+              
+              <h6 class="text-white text-capitalize ps-3">STUDENT TABLE</h6>
+              <input type="text" [(ngModel)]="name"
+              name="nom" class="form-control" placeholder="search" autofocus>
+            </div>
+          </div>
+          
+          <div class="card-body px-0 pb-20" >
+            <div class="table-responsive p-0">
+         
+              
+              <table class="" >
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">image</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">nom</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">prenom</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">option</th>
+                    
+                   
+                    <th class=""></th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let p of liststudents"  >
+
+                  <tr *ngIf="p.nom.indexOf(name)>-1 || name==null" ng>
+                    
+                    <td >
+                     
+                      <div class="d-flex px-2 py-1" >
+                        <div>
+                          <img src="assets/assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="mb-0 text-sm"></h6>
+                          <p class="text-xs text-sm mb-0" >{{p.nom}}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs text-sm mb-0" >{{p.prenom}}</span>
+                   
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs text-sm mb-0" >{{p.option}}</span>
+                   
+                    </td>
+                   
+                      
+                         <td class="align-middle ">
+                     <button type="button" class="btn btn-close" (click)="delete(p)"> supprimer</button> 
+                  
+                    </td>
+                    <td class="align-middle ">
+                      <button type="button" class="btn btn-danger" routerLink='/students/updateStudent/{{p.idEtudiant}}'>MODIFIER</button> 
+                   
+                     </td>
+
+                     <td class="align-middle ">
+                      <button type="button" class="btn btn-danger" (click)="idetud=p.idEtudiant " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Affecter
+                      </button>
+
+                   
+                     </td>
+                     <td class="align-middle ">
+                      <button type="button" class="btn btn-danger"  data-bs-toggle="modal" (click)="affiche(p.idEtudiant)" data-bs-target="#exampleModall">
+                        show details
+                       </button>
+
+                    <app-showdetails-students  [id]="idetudiant"></app-showdetails-students>
+                     </td>
+                    <td class="align-middle">
+                      <button type="button" class="btn btn-danger" (click)="sms(p) ">
+                       sms
+                      </button>
+                    
+                    </td>
+                  </tr>
+               
+                 
+                  
+               
+                </tbody>
+             
+              </table>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">CHOISIR EQUIPE</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+           <table class="table align-items-center mb-5" >
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">nomEquipe</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Niveau</th>
+                </tr>
+              </thead>
+
+              
+              <tbody *ngFor="let t of listeequipe">
+                <tr >
+                  
+                 
+                 
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-xs text-secondary mb-0">{{t.nomEquipe}}</span>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <span class="text-xs text-secondary mb-0">{{t.niveau}}</span>
+                  </td>
+                  <td class="align-middle ">
+                   <a routerLink="/students/listStudent" class="text-xs text-secondary mb-0" (click)="affecteretudiant(t.idEquipe,idetud,t)">choisir</a> 
+                
+                  </td>
+                
+                   <td class="align-middle ">
+                  
+                 
+                   </td>
+                  <td class="align-middle">
+                  
+                  </td>
+                </tr>
+             
+               
+                
+              
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+           
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      var myModal = document.getElementById('myModal')
+      var myInput = document.getElementById('myInput')
+      
+      myModal.addEventListener('shown.bs.modal', function () {
+        myInput.focus()
+      })
+      </script>
